@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Expose Razorpay backend port
-EXPOSE 8081
+EXPOSE 9092
 
 # Start the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
