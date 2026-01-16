@@ -1,12 +1,20 @@
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.5-eclipse-temurin-17 AS build
 WORKDIR /razorpay-demo
+
+# Copy pom.xml first (for dependency caching)
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy source code
 COPY src ./src
+
+# Build jar
 RUN mvn clean package -DskipTests
 
+# -------- RUNTIME STAGE --------
 FROM eclipse-temurin:17-jre
 WORKDIR /razorpay-demo
-COPY --from=build /app/target/*.jar app.jar
-EXPOSE 9092
-ENTRYPOINT ["java", "-jar", "app.jar"]
 
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 9092
