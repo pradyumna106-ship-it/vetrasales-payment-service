@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.razorpay.Utils;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class PaymentController {
     private static final String KEY_ID = "rzp_test_90lAmUtfOQvFlI"; // Replace with your Key ID
     private static final String KEY_SECRET = "ymeqDPn6k9FOe6qr6pdIZFZh"; // Replace with your Key Secret
 
-    @PostMapping("/create-order")
+    @GetMapping("/create-order")
     public String createOrder(@RequestParam("amount") int amount) throws RazorpayException {
     	System.out.println("Amount Recived: "+amount);
     	if (amount > 100000) {
